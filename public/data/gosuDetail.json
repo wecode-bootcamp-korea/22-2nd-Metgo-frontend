@@ -1,0 +1,34 @@
+[
+  {
+    "profile_image": "/images/profile_img.png",
+    "name": "Tay",
+    "main_service": "서비스1",
+    "rating": "4.0",
+    "review_counts": 2,
+    "introduction": "this is intro",
+    "info": "본인인증",
+    "region": "강남구",
+    "career": 5,
+    "certification": true,
+    "business": true,
+    "description": "this is desc",
+    "hired": 123,
+    "uploaded_image": [
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg",
+      "/images/muyaho.jpeg"
+    ]
+  }
+]
