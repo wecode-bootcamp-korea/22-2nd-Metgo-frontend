@@ -4,7 +4,7 @@ import { IoMdClose } from 'react-icons/io';
 
 import UserFormInputs from '../UserInput/UserInput';
 import UserFormBtns from '../UserButton/UserFormBtn';
-import UserRadioBtns from '../UserRadioBrtns/UserFormRadio';
+import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
 
 import * as S from './SignupEle';
 

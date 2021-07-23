@@ -3,9 +3,10 @@ import { IoMdClose } from 'react-icons/io';
 
 import UserFormInputs from '../UserInput/UserInput';
 import UserFormBtns from '../UserButton/UserFormBtn';
-import UserRadioBtns from '../UserRadioBrtns/UserFormRadio';
+import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
 
 import * as S from './LoginEle';
+const Img = `/images/metgo3.png`;
 
 function Login({ form, modalClose }) {
   const [inputValues, setInputValues] = useState({ id: '', password: '' });
@@ -43,5 +44,3 @@ function Login({ form, modalClose }) {
 }
 
 export default Login;
-
-const Img = `/images/metgo3.png`;

@@ -3,7 +3,6 @@ import React from 'react';
 import * as S from './UserInputEle';
 
 function UserFormInputs({ form, getInputValue, inputValues }) {
-  console.log(`inputValues`, inputValues);
   return (
     <S.UserFromInputContainer>
       <S.InputBox>

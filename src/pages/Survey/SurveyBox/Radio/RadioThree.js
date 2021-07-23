@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { RadioBox } from './RadioEle';
 
-function Radio({ currentQdata, getRadioValue }) {
+function RadioThree({ questionThree, getRadioValue }) {
   return (
     <RadioBox>
-      <h2>{currentQdata.Q1}</h2>
+      <h2>{questionThree.Q1}</h2>
       <ul>
-        {currentQdata.answer.map((data, i) => {
+        {questionThree.answer.map((data, i) => {
           return (
             <li key={i}>
               <div id="a">
                 <input
+                  className="answer"
                   type="radio"
-                  name="answer"
+                  name={questionThree.id}
                   id={data}
                   onChange={getRadioValue}
                 />
@@ -26,4 +27,4 @@ function Radio({ currentQdata, getRadioValue }) {
   );
 }
 
-export default Radio;
+export default RadioThree;
