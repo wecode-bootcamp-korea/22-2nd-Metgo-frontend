@@ -21,6 +21,16 @@
       crossorigin="anonymous"
     />
     <title>맺고</title>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+      const jsKey = '9fe417e3dc6ddf0c2e965a0aaf60efd9';
+      if (!window.Kakao.isInitialized()) {
+        // JavaScript key를 인자로 주고 SDK 초기화
+        window.Kakao.init(jsKey);
+        // SDK 초기화 여부를 확인하자.
+        console.log(window.Kakao.isInitialized());
+      }
+    </script>
   </head>
   <body>
     <div id="root" />
