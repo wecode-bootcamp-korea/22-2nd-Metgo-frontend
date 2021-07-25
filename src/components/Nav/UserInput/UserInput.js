@@ -3,6 +3,7 @@ import React from 'react';
 import * as S from './UserInputEle';
 
 function UserFormInputs({ form, getInputValue, inputValues }) {
+  console.log(`inputValues`, inputValues);
   return (
     <S.UserFromInputContainer>
       <S.InputBox>
@@ -14,8 +15,8 @@ function UserFormInputs({ form, getInputValue, inputValues }) {
               </S.InputTextBox>
               <S.Input
                 type={inputList.type}
-                name={inputList.text}
-                value={inputValues.password}
+                name={inputList.value}
+                value={inputValues[inputList.value]}
                 autoComplete="off"
                 placeholder={inputList.placeholder}
                 onChange={getInputValue}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
-import UserFormInputs from '../UserInput/UserInput';
-import UserFormBtns from '../UserButton/UserFormBtn';
-import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
+import UserFormInputs from '../../src/components/Nav/UserInput/UserInput';
+import UserFormBtns from '../../src/components/Nav/UserButton/UserFormBtn';
+import UserRadioBtns from '../../src/components/Nav/UserRadioBtns/UserFormRadio';
 
 import * as S from './LoginEle';
 const Img = `/images/metgo3.png`;

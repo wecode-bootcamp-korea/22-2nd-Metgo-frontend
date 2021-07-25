@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 // COMPONENTS
-import Radio from './Radio/Radio';
+import RadioOne from './Radio/RadioOne';
+import RadioThree from './Radio/RadioThree';
+import RadioTwo from './Radio/RadioTwo';
 import Select from './Select/Select';
 import Stepper from './Stepper/Stepper';
 
@@ -12,15 +13,21 @@ import {
   questionOne,
   questionTwo,
   questionThree,
-} from '../SurveyData';
+} from '../src/Pages/Survey/SurveyData';
 
 // STYLES
 import * as S from './SurveyBoxEle';
 
 // APIKEY
-import { BASE_URL } from '../../../config';
+import { BASE_URL } from '../src/config';
 
 function SurveyBox() {
+  const [isRadioOneOpen, setIsRadioOneOpen] = useState(true);
+  const [isRadioTwoOpen, setIsRadioTwoOpen] = useState(false);
+  const [isRadioThreeOpen, setIsRadioThreeOpen] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [count, setCount] = useState(0);
+  let [currentQ, setCurrentQ] = useState(0);
   const [selectedTown, setSelectedTown] = useState({
     town: '',
   });
@@ -29,13 +36,21 @@ function SurveyBox() {
     age: '',
     career: '',
   });
-  let [currentQ, setCurrentQ] = useState(0);
-  const history = useHistory();
-  // FUNCTIONS
-  const goToFindGosu = () => {
-    history.push('/findgosu');
-  };
 
+  // USEEFFECTS
+  useEffect(() => {
+    {
+      currentQ < 3 && openSurvey();
+    }
+  }, [currentQ]);
+
+  useEffect(() => {
+    {
+      currentQ === 3 && openSurvey();
+    }
+  }, [currentQ]);
+
+  // FUNCTIONS
   const submitForm = () => {
     const age = radioValue.age.slice(0, 2);
     const career = radioValue.career.split('~')[0];
@@ -52,7 +67,7 @@ function SurveyBox() {
       }),
     })
       .then(res => res.json())
-      .then(goToFindGosu());
+      .then(res => console.log(`res`, res));
   };
 
   const clickNextBtn = () => {
@@ -67,9 +82,14 @@ function SurveyBox() {
     }
   };
 
+  const deliverCount = () => {
+    setCount(currentQ);
+  };
+
   const nextBtn = () => {
     if (currentQ < 3) {
       setCurrentQ(currentQ + 1);
+      deliverCount();
     }
   };
 
@@ -79,6 +99,30 @@ function SurveyBox() {
       setRadioValue('');
     } else if (currentQ > 0) {
       setCurrentQ(currentQ - 1);
+    }
+  };
+
+  const openSurvey = () => {
+    if (currentQ === 0) {
+      setIsRadioOneOpen(true);
+      setIsRadioTwoOpen(false);
+      setIsRadioThreeOpen(false);
+      setIsSelectOpen(false);
+    } else if (currentQ === 1) {
+      setIsRadioOneOpen(false);
+      setIsRadioTwoOpen(true);
+      setIsRadioThreeOpen(false);
+      setIsSelectOpen(false);
+    } else if (currentQ === 2) {
+      setIsRadioOneOpen(false);
+      setIsRadioTwoOpen(false);
+      setIsRadioThreeOpen(true);
+      setIsSelectOpen(false);
+    } else {
+      setIsRadioOneOpen(false);
+      setIsRadioTwoOpen(false);
+      setIsRadioThreeOpen(false);
+      setIsSelectOpen(true);
     }
   };
 
@@ -100,23 +144,31 @@ function SurveyBox() {
       }
     });
   };
-
   return (
     <S.SurveyFormBox>
       <S.SurveyForm>
-        <Stepper currentQ={currentQ} />
+        <Stepper count={count} currentQ={currentQ} />
         <S.SurveyLine>
           <S.RadioBox>
-            {currentQ === 0 && (
-              <Radio question={questionOne} getRadioValue={getRadioValue} />
+            {isRadioOneOpen && (
+              <RadioOne
+                questionOne={questionOne}
+                getRadioValue={getRadioValue}
+              />
             )}
-            {currentQ === 1 && (
-              <Radio question={questionTwo} getRadioValue={getRadioValue} />
+            {isRadioTwoOpen && (
+              <RadioTwo
+                questionTwo={questionTwo}
+                getRadioValue={getRadioValue}
+              />
             )}
-            {currentQ === 2 && (
-              <Radio question={questionThree} getRadioValue={getRadioValue} />
+            {isRadioThreeOpen && (
+              <RadioThree
+                questionThree={questionThree}
+                getRadioValue={getRadioValue}
+              />
             )}
-            {currentQ === 3 && (
+            {isSelectOpen && (
               <Select SelectData={SelectData} getSelectValue={getSelectValue} />
             )}
           </S.RadioBox>

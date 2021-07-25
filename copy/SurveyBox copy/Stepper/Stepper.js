@@ -3,36 +3,26 @@ import React, { useEffect, useState } from 'react';
 import * as S from './StepperEle';
 const Img = '/images/koala.png';
 
-function Stepper({ currentQ }) {
+function Stepper({ count, currentQ }) {
+  const [currentCount, setCurrentCount] = useState(0);
   const [translateValue, setTranslateValue] = useState(0);
 
   useEffect(() => {
-    stpperChange();
+    setCurrentCount(currentQ);
   }, [currentQ]);
 
-  // useEffect(() => {
-  //   stpperChange();
-  // }, [currentCount]);
+  useEffect(() => {
+    stpperChange();
+  }, [currentCount]);
 
-  // const stpperChange = () => {
-  //   if (currentCount === 0) {
-  //     setTranslateValue(0);
-  //   } else if (currentCount === 1) {
-  //     setTranslateValue(26);
-  //   } else if (currentCount === 2) {
-  //     setTranslateValue(56);
-  //   } else if (currentCount === 3) {
-  //     setTranslateValue(86);
-  //   }
-  // };
   const stpperChange = () => {
-    if (currentQ === 0) {
+    if (currentCount === 0) {
       setTranslateValue(0);
-    } else if (currentQ === 1) {
+    } else if (currentCount === 1) {
       setTranslateValue(26);
-    } else if (currentQ === 2) {
+    } else if (currentCount === 2) {
       setTranslateValue(56);
-    } else if (currentQ === 3) {
+    } else if (currentCount === 3) {
       setTranslateValue(86);
     }
   };

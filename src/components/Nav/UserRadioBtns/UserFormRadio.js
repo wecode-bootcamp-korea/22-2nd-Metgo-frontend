@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function UserFormRadio({ form }) {
-  const [radio, setRadio] = useState('');
-
-  const setRadioValue = e => {
-    setRadio(e.target.value);
-  };
+function UserFormRadio({ form, getRadioValue }) {
   return (
     <RadioWrap>
       <RadioBtn>
-        <input type="radio" name="radio" value="user" onClick={setRadioValue} />
+        <input type="radio" name="radio" value="user" onClick={getRadioValue} />
         <label htmlFor="user">{form.radioBtn[0].text}</label>
       </RadioBtn>
       <RadioBtn>
-        <input type="radio" name="radio" value="gosu" onClick={setRadioValue} />
+        <input
+          type="radio"
+          name="radio"
+          value="master"
+          onClick={getRadioValue}
+        />
         <label htmlFor="gosu">{form.radioBtn[1].text}</label>
       </RadioBtn>
     </RadioWrap>

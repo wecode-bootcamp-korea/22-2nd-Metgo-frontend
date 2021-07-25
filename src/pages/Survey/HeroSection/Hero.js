@@ -2,11 +2,11 @@ import React from 'react';
 
 import * as S from './HeroEle';
 
-function Hero() {
+function Hero({ pageInfo }) {
   return (
     <S.HeroSection>
       <S.HeroTextBox>
-        <S.MainTitle>결혼식 사회자</S.MainTitle>
+        <S.MainTitle>{pageInfo.name}</S.MainTitle>
         <S.StarsBox>
           <S.Stars>
             <S.Star>별</S.Star>
@@ -15,7 +15,7 @@ function Hero() {
             <S.Star>별</S.Star>
             <S.Star>별</S.Star>
           </S.Stars>
-          <S.Rating>4.5점</S.Rating>
+          <S.Rating>{pageInfo.rating}점</S.Rating>
         </S.StarsBox>
         <S.TotalBox>
           <S.Total>

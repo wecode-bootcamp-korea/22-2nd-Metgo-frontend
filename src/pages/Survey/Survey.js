@@ -1,34 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+// CONPONENTS
 import Hero from './HeroSection/Hero';
+import InfoBox from './InfoBox/InfoBox';
 import SurveyBox from './SurveyBox/SurveyBox';
 
-import * as S from './SurveyEle';
+// STYLES
+import styled from 'styled-components';
+
+import { BASE_URL } from '../../config';
 
 function Survey() {
+  const [pageInfo, setPageInfo] = useState([]);
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
+  const getInfo = () => {
+    fetch(`${BASE_URL}/services/2`)
+      .then(res => res.json())
+      .then(res => setPageInfo(res.results[0]));
+  };
+
   return (
-    <S.SurveyContainer>
-      <Hero />
-      <S.SurveySection>
+    <SurveyContainer>
+      <Hero pageInfo={pageInfo} />
+      <SurveySection>
         <SurveyBox />
-        <S.InfoBox>
-          <S.InfoTitle>숨고는 어떤 곳인가요?</S.InfoTitle>
-          <S.InfoText>
-            서비스가 필요한 고객과 서비스를 제공하는 숨은 고수를 쉽고 빠르게
-            연결해드리는 전문가 매칭 서비스입니다. 1분 내외의 요청서를 작성하면,
-            여러 고수님들이 맞춤형 견적을 보내드려요. 맘에 쏙 드는 고수의 맞춤형
-            서비스를 받아보세요.
-          </S.InfoText>
-          <S.InfoTitle>숨고는 어떤 곳인가요?</S.InfoTitle>
-          <S.InfoText>
-            서비스가 필요한 고객과 서비스를 제공하는 숨은 고수를 쉽고 빠르게
-            연결해드리는 전문가 매칭 서비스입니다. 1분 내외의 요청서를 작성하면,
-            여러 고수님들이 맞춤형 견적을 보내드려요. 맘에 쏙 드는 고수의 맞춤형
-            서비스를 받아보세요.
-          </S.InfoText>
-        </S.InfoBox>
-      </S.SurveySection>
-    </S.SurveyContainer>
+        <InfoBox />
+      </SurveySection>
+    </SurveyContainer>
   );
 }
 
 export default Survey;
+
+const SurveyContainer = styled.div`
+  padding-bottom: 2.5rem;
+`;
+
+const SurveySection = styled.div`
+  width: 970px;
+  margin: 1rem auto -2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;

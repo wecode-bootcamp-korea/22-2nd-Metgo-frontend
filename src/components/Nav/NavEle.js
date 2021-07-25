@@ -15,6 +15,7 @@ export const Navbar = styled.div`
   width: 100%;
   max-width: 1200px;
   padding: 10px 0;
+  position: relative;
 `;
 
 export const NavLeft = styled.div`
@@ -27,7 +28,7 @@ export const LogoBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 120px;
   height: 100%;
   margin: 0 30px;
 `;
@@ -41,13 +42,14 @@ export const MenuBox = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 5px;
 `;
 
 export const MenuList = styled(Link)`
   margin: 0 10px;
   cursor: pointer;
   text-decoration: none;
-  color: #000;
+  color: #323232;
 `;
 
 export const UserBox = styled.div`
@@ -56,21 +58,46 @@ export const UserBox = styled.div`
   align-items: center;
 `;
 
-export const Login = styled.button`
+export const Button = styled.button`
   background-color: transparent;
   outline: none;
   border: none;
   font-size: 15px;
   border-radius: 5px;
   cursor: pointer;
+  color: #323232;
 `;
 
-export const Signup = styled.button`
-  background-color: transparent;
-  outline: none;
-  border: none;
-  font-size: 15px;
-  border-radius: 5px;
+export const Login = styled(Button)``;
+
+export const Signup = styled(Button)`
   margin: 0 30px;
+`;
+export const UserImgBox = styled.div`
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+`;
+export const UserImg = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+export const User = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+
+  .userIcons {
+    margin: 0 10px 2px;
+    color: #aaa;
+    cursor: pointer;
+  }
+`;
+export const UserName = styled.p`
+  font-size: 15px;
+  color: gery;
   cursor: pointer;
 `;

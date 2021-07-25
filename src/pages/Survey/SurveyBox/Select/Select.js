@@ -1,26 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { SelectBox } from './SelectEle';
+import React from 'react';
 
-function Select({ surveyData2, getSelectValue }) {
+import { ImArrowDown2 } from 'react-icons/im';
+
+// STYLES
+import * as S from './SelectEle';
+
+function Select({ SelectData, getSelectValue }) {
   return (
-    <SelectBox>
-      <h2>아브라카다브라</h2>
-      <div className="select">
-        <select name="시/도" id="city">
-          <option value="서울시">서울시</option>
-        </select>
-        <select name="시/군/구" id="town" onChange={getSelectValue}>
-          <option value="">시/군/구</option>
-          {surveyData2.B.option.map((el, i) => {
+    <S.Container>
+      <S.Title>{SelectData.Q1}</S.Title>
+      <S.SelectBox>
+        <S.SelectCity name="시/도">
+          <S.OptionCity value="서울시">서울시</S.OptionCity>
+          <ImArrowDown2 className="icon" />
+        </S.SelectCity>
+        <S.SelectTown name="시/군/구" onChange={getSelectValue}>
+          <S.OptionTown value="">시/군/구</S.OptionTown>
+          {SelectData.town.option.map((el, i) => {
             return (
-              <option key={i} value={el}>
+              <S.OptionTownList key={i} value={el}>
                 {el}
-              </option>
+              </S.OptionTownList>
             );
           })}
-        </select>
-      </div>
-    </SelectBox>
+        </S.SelectTown>
+      </S.SelectBox>
+    </S.Container>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './UserFormBtnEle';
 
-function UserFormBtn({ form }) {
+function UserFormBtn({ form, handleClickButton }) {
   return (
     <S.BtnsContainer>
       {form.status === '로그인' && <S.KakaoBtn>카카오톡으로 로그인</S.KakaoBtn>}
@@ -11,6 +11,8 @@ function UserFormBtn({ form }) {
             key={i}
             blackFont={list.blackFont}
             style={{ backgroundColor: list.bg }}
+            onClick={handleClickButton}
+            name={list.name}
           >
             {list.text}
           </S.Btns>
