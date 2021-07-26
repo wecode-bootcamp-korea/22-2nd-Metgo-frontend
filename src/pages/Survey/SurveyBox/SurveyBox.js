@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import Radio from './Radio/Radio';
 import Select from './Select/Select';
 import Stepper from './Stepper/Stepper';
+import Loading from './Loding';
 
 // QUESTION DATA
 import {
@@ -21,6 +22,7 @@ import * as S from './SurveyBoxEle';
 import { BASE_URL } from '../../../config';
 
 function SurveyBox() {
+  const [loading, setLoading] = useState(false);
   const [selectedTown, setSelectedTown] = useState({
     town: '',
   });
@@ -34,6 +36,11 @@ function SurveyBox() {
   // FUNCTIONS
   const goToFindGosu = () => {
     history.push('/findgosu');
+  };
+  const timeLoading = () => {
+    setTimeout(() => {
+      submitForm();
+    }, 5000);
   };
 
   const submitForm = () => {
@@ -63,7 +70,8 @@ function SurveyBox() {
     ) {
       nextBtn();
     } else if (currentQ === 3 && selectedTown.town !== '') {
-      submitForm();
+      setLoading(true);
+      timeLoading();
     }
   };
 
@@ -104,34 +112,46 @@ function SurveyBox() {
   return (
     <S.SurveyFormBox>
       <S.SurveyForm>
-        <Stepper currentQ={currentQ} />
-        <S.SurveyLine>
-          <S.RadioBox>
-            {currentQ === 0 && (
-              <Radio question={questionOne} getRadioValue={getRadioValue} />
-            )}
-            {currentQ === 1 && (
-              <Radio question={questionTwo} getRadioValue={getRadioValue} />
-            )}
-            {currentQ === 2 && (
-              <Radio question={questionThree} getRadioValue={getRadioValue} />
-            )}
-            {currentQ === 3 && (
-              <Select SelectData={SelectData} getSelectValue={getSelectValue} />
-            )}
-          </S.RadioBox>
-        </S.SurveyLine>
-        <S.BtnLine>
-          {currentQ !== 0 && (
-            <S.PrevBtn className="prev" onClick={clickPrevBtn}>
-              이전
-            </S.PrevBtn>
-          )}
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <Stepper currentQ={currentQ} />
+            <S.SurveyLine>
+              <S.RadioBox>
+                {currentQ === 0 && (
+                  <Radio question={questionOne} getRadioValue={getRadioValue} />
+                )}
+                {currentQ === 1 && (
+                  <Radio question={questionTwo} getRadioValue={getRadioValue} />
+                )}
+                {currentQ === 2 && (
+                  <Radio
+                    question={questionThree}
+                    getRadioValue={getRadioValue}
+                  />
+                )}
+                {currentQ === 3 && (
+                  <Select
+                    SelectData={SelectData}
+                    getSelectValue={getSelectValue}
+                  />
+                )}
+              </S.RadioBox>
+            </S.SurveyLine>
+            <S.BtnLine>
+              {currentQ !== 0 && (
+                <S.PrevBtn className="prev" onClick={clickPrevBtn}>
+                  이전
+                </S.PrevBtn>
+              )}
 
-          <S.NextBtn className="next" onClick={clickNextBtn}>
-            다음
-          </S.NextBtn>
-        </S.BtnLine>
+              <S.NextBtn className="next" onClick={clickNextBtn}>
+                다음
+              </S.NextBtn>
+            </S.BtnLine>
+          </>
+        )}
       </S.SurveyForm>
     </S.SurveyFormBox>
   );

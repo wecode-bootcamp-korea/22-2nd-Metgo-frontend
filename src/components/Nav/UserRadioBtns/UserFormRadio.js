@@ -24,11 +24,10 @@ function UserFormRadio({ form, getRadioValue }) {
 export default UserFormRadio;
 
 const RadioWrap = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.flex('center', 'center', null)};
   margin-bottom: 20px;
 `;
+
 const RadioBtn = styled.li`
   margin: 0 20px;
 `;

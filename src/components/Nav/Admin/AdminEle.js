@@ -2,17 +2,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const FormBox = styled.form`
-  display: flex;
-  align-items: center;
+  ${({ theme }) => theme.flex(null, 'center', 'column')};
+  position: relative;
   width: 500px;
   height: 700px;
   margin: 0 auto;
-  flex-direction: column;
-  background-color: #fff;
   padding: ${({ paddingBig }) => (paddingBig ? `50px 20px` : `20px 20px`)};
+  background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
-  position: relative;
 `;
 
 export const Logo = styled.div`

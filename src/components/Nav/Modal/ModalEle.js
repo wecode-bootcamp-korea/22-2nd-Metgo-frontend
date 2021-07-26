@@ -6,7 +6,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 10;
 
   &::before {
     content: '';
@@ -22,7 +22,6 @@ export const Container = styled.div`
 `;
 
 export const Bg = styled.div`
-  display: flex;
-  align-items: center;
+  ${({ theme }) => theme.flex(null, 'center', null)};
   height: 100vh;
 `;

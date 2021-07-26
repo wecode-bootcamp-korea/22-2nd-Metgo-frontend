@@ -8,8 +8,6 @@ import Modal from './Modal/Modal';
 import { IoIosArrowDown } from 'react-icons/io';
 import UserMy from './UserMy/UserMy';
 
-const Img = `/images/metgo.png`;
-
 function Nav() {
   const [isModalOpen, SetIsModalOpen] = useState(false);
   const [isUserMyOpen, setIsUserMyOpen] = useState(false);
@@ -41,7 +39,7 @@ function Nav() {
       <S.Navbar>
         <S.NavLeft>
           <S.LogoBox>
-            <S.LogoImg src={Img} art="logo" />
+            <S.LogoImg src="/images/metgo.png" art="logo" />
           </S.LogoBox>
           <S.MenuBox>
             <S.MenuList>견적보기</S.MenuList>

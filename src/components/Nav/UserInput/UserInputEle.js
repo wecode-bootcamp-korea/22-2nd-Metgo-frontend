@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
 export const UserFromInputContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  ${({ theme }) => theme.flex('center', 'center', 'column')};
   width: 100%;
 `;
 
@@ -13,9 +10,7 @@ export const InputBox = styled.div`
 `;
 
 export const InputTextBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  ${({ theme }) => theme.flex('flex-start', 'center', null)};
   width: 70%;
   margin: 0 auto;
 `;
@@ -25,17 +20,14 @@ export const InputText = styled.p`
 `;
 
 export const Input = styled.input`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${({ theme }) => theme.flex('center', 'center', null)};
   width: 70%;
   height: 50px;
-  margin: 0 auto;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin: 0 auto 10px;
   padding: 0 10px;
   font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   outline-color: rebeccapurple;
 
   &::placeholder {

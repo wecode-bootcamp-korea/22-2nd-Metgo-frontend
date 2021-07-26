@@ -6,10 +6,11 @@ import UserFormBtns from '../UserButton/UserFormBtn';
 import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
 
 import * as S from './AdminEle';
-import { BASE_URL } from '../../../config';
+// import { BASE_URL } from '../../../config';
 const Img = `/images/metgo.png`;
 
-function Practice({ form, modalClose }) {
+function Admin({ form, modalClose }) {
+  const { Kakao } = window;
   const [radio, setRadio] = useState('');
   const [inputValues, setInputValues] = useState({
     name: '',
@@ -40,12 +41,12 @@ function Practice({ form, modalClose }) {
     }
   };
   const fetchLogin = () => {
-    fetch(`${BASE_URL}/master/signin`, {
+    fetch(`http://13.125.45.70/master/signin`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   Accept: 'application/json',
+      //   'Content-Type': 'application/json',
+      // },
       body: JSON.stringify({
         email: inputValues.email,
         password: inputValues.password,
@@ -53,6 +54,29 @@ function Practice({ form, modalClose }) {
     })
       .then(res => res.json())
       .then(res => console.log(`res`, res));
+  };
+
+  const kakaoLogin = () => {
+    Kakao.Auth.login({
+      success: function (authObj) {
+        fetch(`APIKEY`, {
+          method: 'POST',
+          body: JSON.stringify({
+            access_token: authObj.access_token,
+          }),
+        })
+          .then(res => res.json())
+          .then(res => {
+            localStorage.setItem('kakao_token', res.access_token);
+            if (res.access_token) {
+              alert('로그인되었습니다');
+            }
+          });
+      },
+      fail: function (err) {
+        alert(JSON.stringify(err));
+      },
+    });
   };
 
   return (
@@ -78,4 +102,4 @@ function Practice({ form, modalClose }) {
   );
 }
 
-export default Practice;
+export default Admin;

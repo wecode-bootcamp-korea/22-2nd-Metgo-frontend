@@ -50,6 +50,7 @@ export const SIGNUP_INFO = {
     },
   ],
 };
+
 export const LOGIN_INFO = {
   status: '로그인',
   engStatus: 'login',
