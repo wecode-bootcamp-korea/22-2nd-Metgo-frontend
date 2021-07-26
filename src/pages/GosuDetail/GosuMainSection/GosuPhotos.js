@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-function GosuPhotos({ uploadedImg }) {
+function GosuPhotos({ uploadedImg, handleMoreBtn, closed }) {
   return (
     <PhotosWrapper>
       <GosuMediaWrapper>
         <h2>사진 및 동영상</h2>
-        <MediaViewBox>
+        <div className={closed.media ? '' : 'close'}>
           <MediaList>
             {uploadedImg.map((img, index) => {
               return (
@@ -15,10 +15,12 @@ function GosuPhotos({ uploadedImg }) {
               );
             })}
           </MediaList>
-          <ViewAllBox>
-            <ViewAllBtn>더보기</ViewAllBtn>
-          </ViewAllBox>
-        </MediaViewBox>
+        </div>
+        <ViewAllBox>
+          <ViewAllBtn name="media" onClick={e => handleMoreBtn(e.target.name)}>
+            {closed.media ? '접기' : '더보기'}
+          </ViewAllBtn>
+        </ViewAllBox>
       </GosuMediaWrapper>
     </PhotosWrapper>
   );
@@ -35,10 +37,11 @@ const GosuMediaWrapper = styled.div`
     font-size: 25px;
     font-weight: 500;
   }
-`;
 
-const MediaViewBox = styled.div`
-  max-height: 700px;
+  .close {
+    max-height: 475px;
+    overflow: hidden;
+  }
 `;
 
 const MediaList = styled.ul`

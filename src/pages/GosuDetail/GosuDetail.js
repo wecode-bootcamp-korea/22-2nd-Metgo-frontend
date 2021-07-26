@@ -3,13 +3,14 @@ import styled from 'styled-components';
 
 import GosuMainSection from './GosuMainSection/GosuMainSection';
 import GosuAsideBar from './GosuAsideBar/GosuAsideBar';
+import { BASE_URL } from '../../config';
 
 function GosuDetail() {
   const [gosuDetails, setGosuDetails] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:3000/data/gosuDetail.json')
-      // fetch('http://192.168.0.103:8000/masters/profile/1')
+      // fetch('{BASE_URL}/masters/profile/1')
       .then(res => res.json())
       .then(data => setGosuDetails(data[0]));
     // .then(data => setGosuDetails(data.data[0]));
@@ -18,9 +19,11 @@ function GosuDetail() {
   return (
     <GosuDetailContainer>
       {gosuDetails.length !== 0 && (
-        <GosuMainSection gosuDetails={gosuDetails} />
+        <>
+          <GosuMainSection gosuDetails={gosuDetails} />
+          <GosuAsideBar gosuDetails={gosuDetails} />
+        </>
       )}
-      {gosuDetails.length !== 0 && <GosuAsideBar gosuDetails={gosuDetails} />}
     </GosuDetailContainer>
   );
 }
