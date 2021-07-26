@@ -15,7 +15,7 @@ function Nav() {
   const [isModalOpen, SetIsModalOpen] = useState(false);
   const [isUserMyOpen, setIsUserMyOpen] = useState(false);
   const [form, setForm] = useState('');
-  const [isLogined, setIsLogined] = useState(false);
+  const [isLogined, setIsLogined] = useState(true);
 
   const loginOrSignup = e => {
     if (e.target.name === '로그인') {
