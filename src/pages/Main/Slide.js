@@ -22,9 +22,7 @@ function Slide({ sliders, GoToServey }) {
     </Container>
   );
 }
-
 export default Slide;
-
 const settings = {
   dots: true,
   infinite: true,
@@ -36,18 +34,15 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
 };
-
 const SlideTitle = styled.h2`
   padding: 60px 0px 50px 0px;
   text-align: center;
   font-size: 30px;
   font-weight: bolder;
 `;
-
 const Container = styled.div`
   margin-right: 25px;
 `;
-
 const StyledSlider = styled(Slider)`
   .slick-list {
     width: 1600px;
@@ -58,12 +53,10 @@ const StyledSlider = styled(Slider)`
     margin-top: 200px;
   }
 `;
-
 const CardBox = styled.div`
   cursor: pointer;
   outline: none;
 `;
-
 const CardImg = styled.img`
   width: 380px;
   height: 190px;
@@ -73,7 +66,6 @@ const CardImg = styled.img`
     background-color: rgba(0, 0, 0, 0.5);
   }
 `;
-
 const CardText = styled.p`
   padding: 20px;
   font-size: 20px;

@@ -20,7 +20,7 @@ const Main = () => {
 
   const GoToServey = serviceId => {
     setServiceId(serviceId);
-    return history.push(`/services/${serviceId}`);
+    return history.push(`/survey/${serviceId}`);
   };
 
   return (
@@ -43,9 +43,7 @@ const Main = () => {
     </>
   );
 };
-
 export default Main;
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,7 +58,6 @@ const Header = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
   z-index: 1;
-
   &::before {
     position: absolute;
     width: 100%;
@@ -79,7 +76,6 @@ const Header = styled.div`
     }
   }
 `;
-
 const MainTop = styled.div`
   display: flex;
   flex-direction: column;
@@ -95,7 +91,6 @@ const MainTopTitle = styled.img`
   padding: 10px;
   z-index: 9999;
 `;
-
 const MainTopText = styled.p`
   margin-top: 15px;
   color: white;
