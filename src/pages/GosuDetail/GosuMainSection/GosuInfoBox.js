@@ -7,7 +7,7 @@ import { BiBriefcaseAlt2 } from 'react-icons/bi';
 import { GrDocumentText } from 'react-icons/gr';
 import { AiOutlineSafetyCertificate } from 'react-icons/ai';
 
-function GosuInfoBox({ gosuDetails }) {
+function GosuInfoBox({ gosuDetails, handleMoreBtn, closed }) {
   const {
     introduction,
     info,
@@ -42,7 +42,7 @@ function GosuInfoBox({ gosuDetails }) {
       </GosuIntroduce>
       <GosuBasicInfo>
         <h2>기본정보</h2>
-        <BasicInfo>
+        <ul>
           {basicLists.map((basicList, i) => {
             return (
               <li key={i}>
@@ -51,7 +51,7 @@ function GosuInfoBox({ gosuDetails }) {
               </li>
             );
           })}
-        </BasicInfo>
+        </ul>
       </GosuBasicInfo>
       <GosuAddedInfo>
         <h2>추가정보</h2>
@@ -85,10 +85,15 @@ function GosuInfoBox({ gosuDetails }) {
         <h2>서비스 상세설명</h2>
         <ServiceDetailBox>
           <DetailText>
-            <p>{description}</p>
+            <p className={closed.desc ? '' : 'close'}>{description}</p>
           </DetailText>
           <ViewMoreBox>
-            <ViewMoreBtn>더보기</ViewMoreBtn>
+            <ViewMoreBtn
+              name="desc"
+              onClick={e => handleMoreBtn(e.target.name)}
+            >
+              {closed.desc ? '접기' : '더보기'}
+            </ViewMoreBtn>
           </ViewMoreBox>
         </ServiceDetailBox>
       </GosuService>
@@ -128,8 +133,6 @@ const GosuBasicInfo = styled.div`
     }
   }
 `;
-
-const BasicInfo = styled.ul``;
 
 const GosuAddedInfo = styled.div`
   float: left;
@@ -177,7 +180,19 @@ const ServiceDetailBox = styled.div``;
 
 const DetailText = styled.div`
   max-height: 200px;
-  overflow: hidden;
+
+  p {
+    max-height: 100%;
+    line-height: 35px;
+  }
+
+  p.close {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
 `;
 
 const ViewMoreBox = styled.div`
