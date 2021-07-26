@@ -9,7 +9,7 @@ function Routes() {
     <Router>
       <Nav />
       <Switch>
-        <Route exact path="/main" component={Main} />
+        <Route exact path="/" component={Main} />
       </Switch>
     </Router>
   );

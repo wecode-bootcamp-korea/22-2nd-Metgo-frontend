@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Slide from './Slide';
 import Category from './Category';
@@ -7,32 +8,41 @@ import { CATEGORY } from './CategoryListData';
 const Main = () => {
   const [sliders, setSliders] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(1);
+  const [serviceId, setServiceId] = useState();
+  const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://10.58.0.252:8000/${selectedCategory}`)
+    fetch(`http://10.58.2.233:8000/${selectedCategory}`)
       .then(res => res.json())
       .then(data => setSliders(data.services));
   }, [selectedCategory]);
+
+  const GoToServey = serviceId => {
+    setServiceId(serviceId);
+    return history.push(`/services/${serviceId}`);
+  };
 
   return (
     <>
       <Header>
         <MainTop>
-          <MainTopTitle>맺고</MainTopTitle>
+          <MainTopTitle src="../images/Realwhite.png" />
           <MainTopText>생활의 고수들과 새로운 인연을 맺어보세요!</MainTopText>
         </MainTop>
-        <Category
-          categories={CATEGORY}
-          setSelectedCategory={setSelectedCategory}
-        />
+        {selectedCategory.length !== 0 && (
+          <Category
+            categories={CATEGORY}
+            setSelectedCategory={setSelectedCategory}
+          />
+        )}
       </Header>
-      {sliders.length !== 0 && <Slide sliders={sliders} />}
+      {sliders.length !== 0 && (
+        <Slide sliders={sliders} GoToServey={GoToServey} />
+      )}
     </>
   );
 };
-
 export default Main;
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,7 +57,6 @@ const Header = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
   z-index: 1;
-
   &::before {
     position: absolute;
     width: 100%;
@@ -55,7 +64,6 @@ const Header = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
     content: '';
   }
-
   @keyframes slidein {
     from {
       background-position: top;
@@ -67,24 +75,22 @@ const Header = styled.div`
     }
   }
 `;
-
 const MainTop = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 150px;
+  margin-top: 130px;
   align-items: center;
   z-index: 9999;
 `;
-
-const MainTopTitle = styled.h1`
+const MainTopTitle = styled.img`
+  display: flex;
+  width: 250px;
   padding: 10px;
-  color: white;
-  font-size: 50px;
-  font-weight: bolder;
+  z-index: 9999;
 `;
-
 const MainTopText = styled.p`
+  margin-top: 15px;
   color: white;
   font-size: 20px;
 `;
