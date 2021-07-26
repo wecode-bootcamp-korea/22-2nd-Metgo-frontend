@@ -1,5 +1,6 @@
 import React from 'react';
 
+// STYLES
 import * as S from './UserInputEle';
 
 function UserFormInputs({ form, getInputValue, inputValues }) {

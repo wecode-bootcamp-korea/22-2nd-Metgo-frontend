@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+// STYLES
 import styled from 'styled-components';
 
 function UserFormRadio({ form, getRadioValue }) {

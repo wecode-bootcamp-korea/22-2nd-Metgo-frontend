@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 
+// COMPONENTS
 import UserFormInputs from '../UserInput/UserInput';
 import UserFormBtns from '../UserButton/UserFormBtn';
 import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
 
+// STYLES
 import * as S from './AdminEle';
+
 // import { BASE_URL } from '../../../config';
-const Img = `/images/metgo.png`;
 
 function Admin({ form, modalClose }) {
   const { Kakao } = window;
@@ -21,14 +23,17 @@ function Admin({ form, modalClose }) {
   const handleSubmit = e => {
     e.preventDefault();
   };
+
   const getInputValue = e => {
     const { name, value } = e.target;
 
     setInputValues({ ...inputValues, [name]: value });
   };
+
   const getRadioValue = e => {
     setRadio(e.target.value);
   };
+
   const handleClickButton = e => {
     const { name } = e.target;
     console.log(`name`, name);
@@ -40,6 +45,7 @@ function Admin({ form, modalClose }) {
       // localStorage.removeItem('token');
     }
   };
+
   const fetchLogin = () => {
     fetch(`http://13.125.45.70/master/signin`, {
       method: 'POST',
@@ -82,7 +88,7 @@ function Admin({ form, modalClose }) {
   return (
     <S.FormBox paddingBig={form.paddingBig} onSubmit={handleSubmit}>
       <S.Logo>
-        <S.LogoImg src={Img} alt="UserFormImg" />
+        <S.LogoImg src="/images/metgo.png" alt="UserFormImg" />
       </S.Logo>
       <S.Text>{form.status}</S.Text>
       <UserFormInputs

@@ -1,12 +1,13 @@
 import React from 'react';
 
-import * as S from './ModalEle';
-
-// import Signup from '../Signup/Signup';
-// import Login from '../Login/Login';
+// COMPONENTS
 import Admin from '../Admin/Admin';
 
+//DATA
 import { LOGIN_INFO, SIGNUP_INFO } from '../NavData';
+
+//STYLES
+import * as S from './ModalEle';
 
 function Modal({ form, modalClose }) {
   return (

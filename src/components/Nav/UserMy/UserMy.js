@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+
+//STYLES
+import styled from 'styled-components';
 
 function UserMy() {
   const [isWidth, setIsWidth] = useState(false);
@@ -25,6 +26,7 @@ function UserMy() {
           )}
         </GosuListBox>
         <ListWrap className={isWidth ? 'active' : null}>
+          {/* test map */}
           {map.map((el, i) => {
             return (
               <List>

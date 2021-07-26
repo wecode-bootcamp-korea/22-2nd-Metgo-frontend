@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-// import Signup from './Signup copy/Signup';
+import { IoIosArrowDown } from 'react-icons/io';
+
+// COMPONENTS
+import Modal from './Modal/Modal';
+import UserMy from './UserMy/UserMy';
+
+// DATA
 import { LOGIN_INFO, SIGNUP_INFO } from './NavData';
 
+// STYLES
 import * as S from './NavEle';
-import Modal from './Modal/Modal';
-
-import { IoIosArrowDown } from 'react-icons/io';
-import UserMy from './UserMy/UserMy';
 
 function Nav() {
   const [isModalOpen, SetIsModalOpen] = useState(false);
