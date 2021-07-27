@@ -1,4 +1,14 @@
+import { css } from 'styled-components';
+
 const theme = {
+  flex: (justify = null, align = null, direction = null) => {
+    return css`
+      display: flex;
+      justify-content: ${justify};
+      align-items: ${align};
+      flex-direction: ${direction};
+    `;
+  },
   background: '#FFFEFC',
   white: '#FFFFFF',
   vermilion: '#ff7425',
