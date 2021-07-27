@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Slide from './Slide';
 import Category from './Category';
 import { CATEGORY } from './CategoryListData';
+import { BASE_URL } from '../../config';
 
 const Main = () => {
   const [sliders, setSliders] = useState([]);
@@ -12,7 +13,7 @@ const Main = () => {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`http://10.58.2.233:8000/${selectedCategory}`)
+    fetch(`${BASE_URL}/${selectedCategory}`)
       .then(res => res.json())
       .then(data => setSliders(data.services));
   }, [selectedCategory]);
@@ -42,7 +43,9 @@ const Main = () => {
     </>
   );
 };
+
 export default Main;
+
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,6 +60,7 @@ const Header = styled.div`
   animation-iteration-count: infinite;
   animation-direction: alternate;
   z-index: 1;
+
   &::before {
     position: absolute;
     width: 100%;
@@ -75,6 +79,7 @@ const Header = styled.div`
     }
   }
 `;
+
 const MainTop = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,12 +88,14 @@ const MainTop = styled.div`
   align-items: center;
   z-index: 9999;
 `;
+
 const MainTopTitle = styled.img`
   display: flex;
   width: 250px;
   padding: 10px;
   z-index: 9999;
 `;
+
 const MainTopText = styled.p`
   margin-top: 15px;
   color: white;
