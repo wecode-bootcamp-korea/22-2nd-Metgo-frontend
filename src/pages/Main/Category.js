@@ -34,6 +34,7 @@ const CategoryBox = styled.li`
   margin: 20px;
   align-items: center;
   cursor: pointer;
+
   &:hover {
     transform: translateY(-15px);
   }
