@@ -5,31 +5,31 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import styled from 'styled-components';
 
 function UserMy() {
-  const [isWidth, setIsWidth] = useState(false);
-  const [map, setMap] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [isToggleHeight, setIsToggleHeight] = useState(false);
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  const width = () => {
-    setIsWidth(!isWidth);
+  const veiwGosuList = () => {
+    setIsToggleHeight(prev => !prev);
   };
 
   return (
     <Container>
       <Box>
         <WelcomeName>안녕하세요, 성정준님</WelcomeName>
-        <Estimation className="budget">받은 견적</Estimation>
-        <GosuListBox className="text" onClick={width}>
-          <GosuListText className="text2">요청한 고수 리스트</GosuListText>
-          {isWidth ? (
+        <Estimation>받은 견적</Estimation>
+        <GosuListBox onClick={veiwGosuList}>
+          <GosuListText>요청한 고수 리스트</GosuListText>
+          {isToggleHeight ? (
             <IoIosArrowUp className="listIcon" />
           ) : (
             <IoIosArrowDown className="listIcon" />
           )}
         </GosuListBox>
-        <ListWrap className={isWidth ? 'active' : null}>
+        <ListWrap className={isToggleHeight ? 'active' : null}>
           {/* test map */}
-          {map.map((el, i) => {
+          {arr.map((el, i) => {
             return (
-              <List>
+              <List key={i}>
                 <ListImg src="/images/user_img1.jpg" alt="" />
                 <ListName>성정준</ListName>
               </List>
@@ -51,6 +51,7 @@ const Container = styled.div`
   padding: 20px 30px;
   background-color: #fff;
   box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.4);
+  z-index: 11;
 `;
 
 const Box = styled.div`

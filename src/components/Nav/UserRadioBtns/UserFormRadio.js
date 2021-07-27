@@ -3,19 +3,24 @@ import React from 'react';
 // STYLES
 import styled from 'styled-components';
 
-function UserFormRadio({ form, getRadioValue }) {
+function UserFormRadio({ form, setRadioValue }) {
   return (
     <RadioWrap>
       <RadioBtn>
-        <input type="radio" name="radio" value="user" onClick={getRadioValue} />
-        <label htmlFor="user">{form.radioBtn[0].text}</label>
+        <input
+          type="radio"
+          name="radio"
+          value="users"
+          onClick={setRadioValue}
+        />
+        <label htmlFor="users">{form.radioBtn[0].text}</label>
       </RadioBtn>
       <RadioBtn>
         <input
           type="radio"
           name="radio"
-          value="master"
-          onClick={getRadioValue}
+          value="masters"
+          onClick={setRadioValue}
         />
         <label htmlFor="gosu">{form.radioBtn[1].text}</label>
       </RadioBtn>

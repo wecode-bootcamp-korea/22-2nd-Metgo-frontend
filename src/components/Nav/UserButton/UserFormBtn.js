@@ -3,16 +3,18 @@ import React from 'react';
 // STYLES
 import * as S from './UserFormBtnEle';
 
-function UserFormBtn({ form, handleClickButton }) {
+function UserFormBtn({ form, handleClickButton, kakaoLogin }) {
   return (
     <S.BtnsContainer>
-      {form.status === '로그인' && <S.KakaoBtn>카카오톡으로 로그인</S.KakaoBtn>}
+      {form.status === '로그인' && (
+        <S.KakaoBtn onClick={kakaoLogin}>카카오톡으로 로그인</S.KakaoBtn>
+      )}
       {form.btnLists.map((list, i) => {
         return (
           <S.Btns
             key={i}
             blackFont={list.blackFont}
-            style={{ backgroundColor: list.bg }}
+            backgroundColor={list.bg}
             onClick={handleClickButton}
             name={list.name}
           >

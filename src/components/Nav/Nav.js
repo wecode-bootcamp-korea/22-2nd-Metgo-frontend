@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
 // COMPONENTS
@@ -10,28 +10,39 @@ import { LOGIN_INFO, SIGNUP_INFO } from './NavData';
 
 // STYLES
 import * as S from './NavEle';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function Nav() {
-  const [isModalOpen, SetIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserMyOpen, setIsUserMyOpen] = useState(false);
   const [form, setForm] = useState('');
-  const [isLogined, setIsLogined] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    // false
+    !!localStorage.getItem('access_token')
+  );
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+
+    if (token) {
+      setIsLoggedIn(token);
+    }
+  }, [isLoggedIn]);
 
   const loginOrSignup = e => {
-    if (e.target.name === '로그인') {
-      setForm(LOGIN_INFO);
-    } else {
-      setForm(SIGNUP_INFO);
+    const { name } = e.target;
+    {
+      name === '로그인' ? setForm(LOGIN_INFO) : setForm(SIGNUP_INFO);
     }
     modalOpen();
   };
 
   const modalOpen = () => {
-    SetIsModalOpen(true);
+    setIsModalOpen(true);
   };
 
   const modalClose = () => {
-    SetIsModalOpen(false);
+    setIsModalOpen(false);
   };
   const userMyOpen = () => {
     setIsUserMyOpen(!isUserMyOpen);
@@ -51,7 +62,7 @@ function Nav() {
           </S.MenuBox>
         </S.NavLeft>
         <S.UserBox>
-          {isLogined ? (
+          {isLoggedIn ? (
             <>
               <S.UserImgBox>
                 <S.UserImg src="/images/user_img1.jpg" alt="userImg" />
@@ -75,7 +86,15 @@ function Nav() {
         {isUserMyOpen && <UserMy />}
       </S.Navbar>
 
-      {isModalOpen && <Modal form={form} modalClose={modalClose} />}
+      {isModalOpen && (
+        <Modal
+          form={form}
+          modalClose={modalClose}
+          setIsLoggedIn={setIsLoggedIn}
+          modalOpen={modalOpen}
+          setForm={setForm}
+        />
+      )}
     </S.NavContainer>
   );
 }

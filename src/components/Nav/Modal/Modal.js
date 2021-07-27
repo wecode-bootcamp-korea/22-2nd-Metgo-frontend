@@ -9,16 +9,15 @@ import { LOGIN_INFO, SIGNUP_INFO } from '../NavData';
 //STYLES
 import * as S from './ModalEle';
 
-function Modal({ form, modalClose }) {
+function Modal({ form, modalClose, setIsLoggedIn }) {
   return (
     <S.Container>
       <S.Bg>
-        {form.status === '회원가입' && (
-          <Admin form={SIGNUP_INFO} modalClose={modalClose} />
-        )}
-        {form.status === '로그인' && (
-          <Admin form={LOGIN_INFO} modalClose={modalClose} />
-        )}
+        <Admin
+          form={form.status === '회원가입' ? SIGNUP_INFO : LOGIN_INFO}
+          setIsLoggedIn={form.status === '로그인' && setIsLoggedIn}
+          modalClose={modalClose}
+        />
       </S.Bg>
     </S.Container>
   );

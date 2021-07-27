@@ -3,15 +3,14 @@ import React from 'react';
 // STYLES
 import * as S from './UserInputEle';
 
-function UserFormInputs({ form, getInputValue, inputValues }) {
-  console.log(`inputValues`, inputValues);
+function UserFormInputs({ form, setInputValue, inputValues }) {
   return (
     <S.UserFromInputContainer>
       <S.InputBox>
         {form.inputLists.map((inputList, i) => {
           return (
-            <>
-              <S.InputTextBox key={i}>
+            <React.Fragment key={i}>
+              <S.InputTextBox>
                 <S.InputText>{inputList.text}</S.InputText>
               </S.InputTextBox>
               <S.Input
@@ -20,9 +19,9 @@ function UserFormInputs({ form, getInputValue, inputValues }) {
                 value={inputValues[inputList.value]}
                 autoComplete="off"
                 placeholder={inputList.placeholder}
-                onChange={getInputValue}
+                onChange={setInputValue}
               />
-            </>
+            </React.Fragment>
           );
         })}
       </S.InputBox>

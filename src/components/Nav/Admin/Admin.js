@@ -1,4 +1,7 @@
+/* eslint-disable*/
+
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { IoMdClose } from 'react-icons/io';
 
 // COMPONENTS
@@ -9,10 +12,12 @@ import UserRadioBtns from '../UserRadioBtns/UserFormRadio';
 // STYLES
 import * as S from './AdminEle';
 
-// import { BASE_URL } from '../../../config';
+import { BASE_URL } from '../../../config';
 
-function Admin({ form, modalClose }) {
-  const { Kakao } = window;
+const { Kakao } = window;
+
+function Admin({ form, modalClose, setIsLoggedIn }) {
+  const history = useHistory();
   const [radio, setRadio] = useState('');
   const [inputValues, setInputValues] = useState({
     name: '',
@@ -24,65 +29,113 @@ function Admin({ form, modalClose }) {
     e.preventDefault();
   };
 
-  const getInputValue = e => {
+  const setInputValue = e => {
     const { name, value } = e.target;
 
-    setInputValues({ ...inputValues, [name]: value });
+    setInputValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const getRadioValue = e => {
+  const setRadioValue = e => {
     setRadio(e.target.value);
   };
 
   const handleClickButton = e => {
     const { name } = e.target;
-    console.log(`name`, name);
-
-    if (name === 'email') {
+    if (
+      name === 'email' &&
+      inputValues.email &&
+      inputValues.password &&
+      radio
+    ) {
       fetchLogin();
       setInputValues({ name: '', email: '', password: '' });
+      setRadio('');
+    } else if (
+      name === 'signup' &&
+      inputValues.name &&
+      inputValues.email &&
+      inputValues.password &&
+      radio
+    ) {
+      fetchSignup();
+      setInputValues({ name: '', email: '', password: '' });
+      setRadio('');
     } else {
-      // localStorage.removeItem('token');
+      alert('작성하신 내용을 확인해주세요');
     }
   };
 
   const fetchLogin = () => {
-    fetch(`http://13.125.45.70/master/signin`, {
-      method: 'POST',
-      // headers: {
-      //   Accept: 'application/json',
-      //   'Content-Type': 'application/json',
-      // },
-      body: JSON.stringify({
-        email: inputValues.email,
-        password: inputValues.password,
-      }),
-    })
-      .then(res => res.json())
-      .then(res => console.log(`res`, res));
-  };
-
-  const kakaoLogin = () => {
-    Kakao.Auth.login({
-      success: function (authObj) {
-        fetch(`APIKEY`, {
+    {
+      radio &&
+        fetch(`${BASE_URL}/${radio}/signin`, {
           method: 'POST',
           body: JSON.stringify({
-            access_token: authObj.access_token,
+            email: inputValues.email,
+            password: inputValues.password,
           }),
         })
           .then(res => res.json())
           .then(res => {
-            localStorage.setItem('kakao_token', res.access_token);
-            if (res.access_token) {
-              alert('로그인되었습니다');
-            }
-          });
-      },
-      fail: function (err) {
-        alert(JSON.stringify(err));
-      },
-    });
+            localStorage.setItem('access_token', res.access_token);
+            setIsLoggedIn(true);
+            modalClose();
+            history.push('/');
+            alert('로그인에 성공했습니다');
+          })
+          .catch(err => console.log(`arr`, err));
+    }
+  };
+
+  const fetchSignup = () => {
+    {
+      radio &&
+        fetch(`${BASE_URL}/${radio}/signup`, {
+          method: 'POST',
+          body: JSON.stringify({
+            name: inputValues.name,
+            email: inputValues.email,
+            password: inputValues.password,
+          }),
+        })
+          .then(res => res.json())
+          .then(res => {
+            modalClose();
+            history.push('/');
+            alert('회원가입에 성공하였습니다 로그인을 해주세요');
+          })
+          .catch(err => console.log(`err`, err));
+    }
+  };
+
+  const kakaoLogin = () => {
+    {
+      radio
+        ? Kakao.Auth.login({
+            success: function (authObj) {
+              fetch(`${BASE_URL}/${radio}/kakao/signin`, {
+                method: 'POST',
+                headers: {
+                  Authorization: authObj.access_token,
+                },
+              })
+                .then(res => res.json())
+                .then(res => {
+                  if (res.message === 'SUCCESS') {
+                    localStorage.setItem('access_token', res.access_token);
+                    modalClose();
+                    alert('로그인되었습니다');
+                    setRadio('');
+                    setIsLoggedIn(true);
+                  }
+                });
+            },
+            fail: function (err) {
+              alert(JSON.stringify(err));
+            },
+          })
+        : alert('고객 고수 버튼중 하나를 선택해주새요');
+    }
   };
 
   return (
@@ -94,10 +147,14 @@ function Admin({ form, modalClose }) {
       <UserFormInputs
         form={form}
         inputValues={inputValues}
-        getInputValue={getInputValue}
+        setInputValue={setInputValue}
       />
-      <UserRadioBtns form={form} getRadioValue={getRadioValue} />
-      <UserFormBtns form={form} handleClickButton={handleClickButton} />
+      <UserRadioBtns form={form} setRadioValue={setRadioValue} />
+      <UserFormBtns
+        form={form}
+        handleClickButton={handleClickButton}
+        kakaoLogin={kakaoLogin}
+      />
       {form.status === '로그인' && (
         <S.AskAccount>{form.bottomText}</S.AskAccount>
       )}
