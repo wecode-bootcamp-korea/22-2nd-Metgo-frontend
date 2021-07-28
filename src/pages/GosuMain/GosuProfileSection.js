@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import UploadImage from './UploadImage';
-import GosuReviews from '../GosuDetail/GosuMainSection/GosuReviews';
+import GosuProfileReview from './GosuProfileReview';
 import { BsStarFill, BsStarHalf } from 'react-icons/bs';
-import { FaRegCheckCircle } from 'react-icons/fa';
+import { IoCheckmarkCircle, IoCheckmarkCircleOutline } from 'react-icons/io5';
 
-function GosuProfileSection() {
-  const [gosuProfileValue, setGosuProfileValue] = useState([]);
+function GosuProfileSection({ gosuProfileValue, totalReview }) {
+  const {
+    profile_image,
+    average_rating,
+    review_counts,
+    hired,
+    name,
+    main_service,
+    introduction,
+    region,
+    career,
+    certification,
+    business,
+    description,
+    uploaded_image,
+  } = gosuProfileValue;
+
   return (
     <GosuProfileWrapper>
       <GosuProfileSummary>
@@ -17,15 +32,15 @@ function GosuProfileSection() {
         <GosuSummaryBox>
           <GosuStatisticsBox>
             <Statistics>
-              <ReviewData>0</ReviewData>
+              <ReviewData>{average_rating}</ReviewData>
               <h3>리뷰 평점</h3>
             </Statistics>
             <Statistics>
-              <ReviewData>0</ReviewData>
+              <ReviewData>{review_counts}</ReviewData>
               <h3>리뷰 수</h3>
             </Statistics>
             <Statistics>
-              <ReviewData>0</ReviewData>
+              <ReviewData>{hired}</ReviewData>
               <h3>고용 수</h3>
             </Statistics>
           </GosuStatisticsBox>
@@ -40,26 +55,26 @@ function GosuProfileSection() {
           <h2>이름</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>이의연</TitleValue>
+        <TitleValue>{name}</TitleValue>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>대표서비스</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>보컬레슨</TitleValue>
+        <TitleValue>{main_service}</TitleValue>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>한줄소개</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>무야호~~</TitleValue>
+        <TitleValue>{introduction}</TitleValue>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>본인 인증</h2>
-          <FaRegCheckCircle color="green" size="22" />
+          <IoCheckmarkCircle color="green" size="22" />
         </TitleNameBar>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
@@ -67,25 +82,33 @@ function GosuProfileSection() {
           <h2>활동 지역</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>서울 송파구 잠실동</TitleValue>
+        <TitleValue>서울 {region}</TitleValue>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>경력</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>5년</TitleValue>
+        <TitleValue>{career}년</TitleValue>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>사업자등록증 등록</h2>
-          <FaRegCheckCircle color="green" size="22" />
+          {business === true ? (
+            <IoCheckmarkCircle color="green" size="25" />
+          ) : (
+            <IoCheckmarkCircleOutline color="grey" size="25" />
+          )}
         </TitleNameBar>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>자격증 등록</h2>
-          <FaRegCheckCircle color="green" size="22" />
+          {certification === true ? (
+            <IoCheckmarkCircle color="green" size="25" />
+          ) : (
+            <IoCheckmarkCircleOutline color="grey" size="25" />
+          )}
         </TitleNameBar>
       </GosuTitleNameBox>
       <GosuTitleNameBox>
@@ -93,7 +116,7 @@ function GosuProfileSection() {
           <h2>고수 서비스 상세설명</h2>
           <EditValueBtn>수정</EditValueBtn>
         </TitleNameBar>
-        <TitleValue>무야호~~</TitleValue>
+        <TitleValue>{description}</TitleValue>
       </GosuTitleNameBox>
       <GosuServiceOfferBox>
         <GosuServiceOfferHeader>
@@ -129,62 +152,22 @@ function GosuProfileSection() {
         <h2>사진 및 동영상</h2>
         <ServiceImgViewBox>
           <ServiceImgList>
-            {/* {uploadedImg.map((img, index) => {
-              return (
-                <li key={index}>
-                  <img alt="리뷰사진" src={img} />
-                </li>
-              );
-            })} */}
-            <li>
-              <div>1</div>
-            </li>
-            <li>
-              <div>2</div>
-            </li>
-            <li>
-              <div>3</div>
-            </li>
-            <li>
-              <div>4</div>
-            </li>
-            <li>
-              <div>5</div>
-            </li>
-            <li>
-              <div>6</div>
-            </li>
-            <li>
-              <div>7</div>
-            </li>
-            <li>
-              <div>8</div>
-            </li>
-            <li>
-              <div>9</div>
-            </li>
-            <li>
-              <div>10</div>
-            </li>
-            <li>
-              <div>11</div>
-            </li>
-            <li>
-              <div>12</div>
-            </li>
-            <li>
-              <div>13</div>
-            </li>
-            <li>
-              <div>14</div>
-            </li>
-            <li>
-              <div>15</div>
-            </li>
+            {uploaded_image &&
+              uploaded_image.map((img, index) => {
+                return (
+                  <li key={index}>
+                    <img alt="리뷰사진" src={img} />
+                  </li>
+                );
+              })}
           </ServiceImgList>
         </ServiceImgViewBox>
       </GosuServiceImgBox>
-      <GosuReviews />
+      <GosuProfileReview
+        review_counts={review_counts}
+        average_rating={average_rating}
+        totalReview={totalReview}
+      />
     </GosuProfileWrapper>
   );
 }
@@ -330,6 +313,7 @@ const GosuIsValid = styled.button`
   color: rebeccapurple;
   font-size: 13px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 const PresentOfferList = styled.ul`
@@ -346,6 +330,7 @@ const AddServiceBtn = styled.button`
   background-color: rebeccapurple;
   color: white;
   font-size: 15px;
+  cursor: pointer;
 `;
 
 const PresentOffer = styled.li`
@@ -401,6 +386,7 @@ const AddOfferCardList = styled.ul`
       background-color: transparent;
       color: #737373;
       font-size: 15px;
+      cursor: pointer;
     }
   }
 `;
@@ -428,13 +414,12 @@ const ServiceImgList = styled.ul`
   li {
     margin: 5px;
 
-    div {
+    img {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 110px;
       height: 110px;
-      border: 1px solid #dbdbdb;
       border-radius: 5px;
     }
   }
