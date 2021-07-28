@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-function GosuOverview({ gosuDetails, RatingStar }) {
-  const { profile_image, name, main_service, rating, review_counts } =
+import { RatingStars } from '../../../RatingStars';
+
+function GosuOverview({ gosuDetails }) {
+  const { profile_image, name, main_service, average_rating, review_counts } =
     gosuDetails;
 
   return (
@@ -11,8 +13,8 @@ function GosuOverview({ gosuDetails, RatingStar }) {
         <GosuTitle>{name}</GosuTitle>
         <GosuCategory>{main_service}</GosuCategory>
         <GosuGradeBox>
-          {RatingStar()}
-          <GosuGrade>{rating}</GosuGrade>
+          {RatingStars(average_rating)}
+          <GosuGrade>{average_rating}</GosuGrade>
           <GosuReviewCount>({review_counts}개의 리뷰)</GosuReviewCount>
         </GosuGradeBox>
       </GosuHeadBox>

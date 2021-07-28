@@ -3,7 +3,7 @@
     "profile_image": "/images/service/coding.jpeg",
     "name": "Tay",
     "main_service": "서비스1",
-    "rating": "4.0",
+    "average_rating": "4.0",
     "review_counts": 2,
     "introduction": "this is intro",
     "info": "본인인증",
