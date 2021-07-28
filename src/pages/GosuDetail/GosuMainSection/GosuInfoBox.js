@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 import { BiUser } from 'react-icons/bi';
@@ -183,14 +184,14 @@ const DetailText = styled.div`
 
   p {
     max-height: 100%;
-    line-height: 35px;
+    line-height: 37px;
   }
 
   p.close {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
 `;
@@ -207,6 +208,7 @@ const ViewMoreBtn = styled.button`
   color: rebeccapurple;
   font-size: 15px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export default GosuInfoBox;

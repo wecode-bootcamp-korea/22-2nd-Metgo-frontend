@@ -1,21 +1,19 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 function GosuPhotos({ uploadedImg, handleMoreBtn, closed }) {
   return (
     <PhotosWrapper>
       <GosuMediaWrapper>
         <h2>사진 및 동영상</h2>
-        <div className={closed.media ? '' : 'close'}>
-          <MediaList>
-            {uploadedImg.map((img, index) => {
-              return (
-                <li key={index}>
-                  <img alt="리뷰사진" src={img} />
-                </li>
-              );
-            })}
-          </MediaList>
-        </div>
+        <MediaList isClosed={closed.media}>
+          {uploadedImg.map((img, index) => {
+            return (
+              <li key={index}>
+                <img alt="리뷰사진" src={img} />
+              </li>
+            );
+          })}
+        </MediaList>
         <ViewAllBox>
           <ViewAllBtn name="media" onClick={e => handleMoreBtn(e.target.name)}>
             {closed.media ? '접기' : '더보기'}
@@ -37,16 +35,18 @@ const GosuMediaWrapper = styled.div`
     font-size: 25px;
     font-weight: 500;
   }
-
-  .close {
-    max-height: 475px;
-    overflow: hidden;
-  }
 `;
 
 const MediaList = styled.ul`
   display: flex;
   flex-wrap: wrap;
+
+  ${({ isClosed }) =>
+    !isClosed &&
+    css`
+      max-height: 475px;
+      overflow: hidden;
+    `}
 
   li {
     margin: 5px;
@@ -76,6 +76,7 @@ const ViewAllBtn = styled.button`
   color: rebeccapurple;
   font-size: 15px;
   font-weight: bold;
+  cursor: pointer;
 `;
 
 export default GosuPhotos;

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-function GosuAsideBar({ gosuDetails }) {
+function GosuAsideBar({ gosuDetails, quotationForm }) {
   return (
     <GosuAsideWrapper>
       <SuggestBox>
         <GosuTitle>
           {gosuDetails.name} 고수에게 원하는 서비스의 견적을 받아 보세요
         </GosuTitle>
-        <SuggestBtn>견적 요청하기</SuggestBtn>
+        <SuggestBtn onClick={quotationForm}>견적 요청하기</SuggestBtn>
       </SuggestBox>
     </GosuAsideWrapper>
   );
@@ -22,7 +22,7 @@ const SuggestBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   position: fixed;
-  top: 50px;
+  top: 100px;
   width: 15%;
   padding: 30px 20px;
   border: 1px solid #dbdbdb;
@@ -32,7 +32,8 @@ const SuggestBox = styled.div`
 const GosuTitle = styled.p`
   margin-bottom: 20px;
   text-align: center;
-  font-size: 20px;
+  line-height: 1.3;
+  font-size: 15px;
   font-weight: 400;
 `;
 
@@ -44,6 +45,7 @@ const SuggestBtn = styled.button`
   border: none;
   border-radius: 5px;
   outline: none;
+  cursor: pointer;
 `;
 
 export default GosuAsideBar;
