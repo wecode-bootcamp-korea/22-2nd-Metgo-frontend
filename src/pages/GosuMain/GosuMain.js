@@ -6,27 +6,30 @@ import RequestListBar from './RequestListBar';
 import { BASE_URL } from '../../config';
 
 function GosuMain() {
-  const [gosuProfileValue, setGosuProfileValue] = useState({});
+  const [gosuProfileValue, setGosuProfileValue] = useState([]);
   const [totalReview, setTotalReview] = useState([]);
   const [quotationUsers, setQuotationUsers] = useState([]);
+  const [isRender, setIsRender] = useState(false);
 
   //고수 프로필 GET
-  useEffect(() => {
-    fetch('http://localhost:3000/data/gosuProfileData.json')
-      // fetch(`${BASE_URL}/masters`, {
-      //   method: 'GET',
-      //   headers: {
-      //     Authorization: localStorage.getItem('access_token'),
-      //   },
-      // })
+  const getGosuProfile = () => {
+    fetch(`${BASE_URL}/masters`, {
+      method: 'GET',
+      headers: {
+        Authorization: localStorage.getItem('access_token'),
+      },
+    })
       .then(res => res.json())
-      .then(data => setGosuProfileValue(data.results[0]));
-    // .then(data => setGosuDetails(data.data[0]));
+      .then(res => {
+        setGosuProfileValue(res.results);
+      });
+  };
+  useEffect(() => {
+    getGosuProfile();
   }, []);
 
   //고수 리뷰 GET
   useEffect(() => {
-    // fetch('http://localhost:3000/data/userReviewData.json')
     fetch(`${BASE_URL}/reviews/1`)
       .then(res => res.json())
       .then(data => setTotalReview(data.results));
@@ -34,41 +37,40 @@ function GosuMain() {
 
   //받은요청 리스트 GET
   const getQuotationList = () => {
-    fetch(`${BASE_URL}/quotations`, {
-      method: 'GET',
-      headers: {
-        Authorization: localStorage.getItem('access_token'),
-      },
-    })
-      // fetch(`${BASE_URL}/quotations`)
-      .then(res => res.json())
-      .then(data => setQuotationUsers(data.results));
+    setInterval(() => {
+      fetch(`${BASE_URL}/quotations`, {
+        method: 'GET',
+        headers: {
+          Authorization: localStorage.getItem('access_token'),
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          setQuotationUsers(data.results);
+        });
+    }, 7000);
   };
 
-  //리스트 수락 or 거절
-  // const userMatching = () => {
-  //   fetch('http://localhost:3000/quotations', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       Authorization: access_token,
-  //     },
-  //     body: JSON.stringify({
-  //       quotation_id: '',
-  //       is_completed: '1 or 0',
-  //     }),
-  //   })
-  //     // fetch(`${BASE_URL}/quotations`)
-  //     .then(res => res.json())
-  //     .then(data => ㅁㄴㅇ);
-  // };
+  useEffect(() => {
+    getQuotationList();
+  }, []);
 
+  useEffect(() => {
+    // console.log(quotationUsers);
+  }, [quotationUsers]);
+  console.log(`gosuProfileValue`, gosuProfileValue);
   return (
     <GosuMainContainer>
-      <GosuProfileSection
-        gosuProfileValue={gosuProfileValue}
-        totalReview={totalReview}
+      {gosuProfileValue.length && totalReview.length && (
+        <GosuProfileSection
+          gosuProfileValue={gosuProfileValue[0]}
+          totalReview={totalReview}
+        />
+      )}
+      <RequestListBar
+        quotationUsers={quotationUsers}
+        setQuotationUsers={setQuotationUsers}
       />
-      <RequestListBar />
     </GosuMainContainer>
   );
 }

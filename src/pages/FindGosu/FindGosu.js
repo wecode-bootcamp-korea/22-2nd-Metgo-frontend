@@ -1,43 +1,39 @@
-import React, { useEffect, useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import GosuList from './GosuList';
 const FindGosu = () => {
-  const [gosuLists, setGosuLists] = useState([]);
-  const [selectedGosu, setSelectedGosu] = useState([]);
-  const [serviceId, setServiceId] = useState([]);
-  // const history = useHistory();
-  useEffect(() => {
-    fetch(`http://10.58.2.233:8000/applications/services/17/masters?user_id=15`)
-      .then(res => res.json())
-      .then(data => setGosuLists(data.results));
-  }, [selectedGosu]);
-  // const GoToGosuDetail = serviceId => {
-  //   setServiceId(serviceId);
-  //   return history.push(`/services/${serviceId}/master`);
-  // };
+  const [review, setReview] = useState();
+  const setReviewLength = data => {
+    setReview(data);
+  };
   return (
     <FindGosuForm>
       <Header>
         <GosuTitle>고수 찾기</GosuTitle>
         <GosuTitleSub>지역, 카테고리</GosuTitleSub>
         <FilterGosuForm>
-          <TotalGosu>100 명의 고수</TotalGosu>
-          <FilterGosu>별점순</FilterGosu>
+          <TotalGosu>{review} 명의 고수</TotalGosu>
         </FilterGosuForm>
       </Header>
-      <GosuList gosuLists={gosuLists} />
+      <GosuList setReviewLength={setReviewLength} />
     </FindGosuForm>
   );
 };
 const FindGosuForm = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  padding: 200px;
+  max-width: 1200px;
+  margin: 100px auto 0;
 `;
 const Header = styled.div`
   display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
   flex-direction: column;
+  width: 100%;
+  padding: 0 3rem;
 `;
 const FilterGosuForm = styled.div`
   display: flex;
@@ -46,9 +42,6 @@ const FilterGosuForm = styled.div`
   margin-top: 50px;
 `;
 const TotalGosu = styled.p`
-  font-size: 15px;
-`;
-const FilterGosu = styled.p`
   font-size: 15px;
 `;
 const GosuTitle = styled.h1`

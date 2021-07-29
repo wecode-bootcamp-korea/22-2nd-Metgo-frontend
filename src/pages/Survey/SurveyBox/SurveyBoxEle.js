@@ -5,7 +5,7 @@ export const SurveyFormBox = styled.div`
   width: 3.75rem;
   min-height: 300px;
   padding: 2.5rem;
-  transform: translateY(-6.25rem);
+  transform: translateY(-12.25rem);
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;

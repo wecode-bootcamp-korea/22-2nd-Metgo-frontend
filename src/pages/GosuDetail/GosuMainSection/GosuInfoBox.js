@@ -23,7 +23,7 @@ function GosuInfoBox({ gosuDetails, handleMoreBtn, closed }) {
   const basicLists = [
     {
       icon: <BiUser />,
-      text: `${info}`,
+      text: '본인인증',
     },
     {
       icon: <AiOutlineTrophy />,

@@ -35,6 +35,8 @@ function GosuFAQ() {
 }
 
 const FaqWrapper = styled.section`
+  margin-bottom: 60px;
+
   h2 {
     margin-bottom: 30px;
     font-size: 25px;

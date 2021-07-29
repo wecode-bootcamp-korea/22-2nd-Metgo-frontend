@@ -19,8 +19,13 @@ const Main = () => {
   }, [selectedCategory]);
 
   const GoToServey = serviceId => {
-    setServiceId(serviceId);
-    return history.push(`/survey/${serviceId}`);
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      setServiceId(serviceId);
+      return history.push(`/survey/${serviceId}`);
+    } else {
+      alert('로그인이 필요합니다.');
+    }
   };
 
   return (
@@ -82,17 +87,17 @@ const MainTop = styled.div`
   justify-content: center;
   margin-top: 130px;
   align-items: center;
-  z-index: 9999;
 `;
 
 const MainTopTitle = styled.img`
   display: flex;
   width: 250px;
   padding: 10px;
-  z-index: 9999;
+  z-index: 1;
 `;
 const MainTopText = styled.p`
   margin-top: 15px;
   color: white;
   font-size: 20px;
+  z-index: 1;
 `;

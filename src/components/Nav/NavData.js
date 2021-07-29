@@ -89,16 +89,9 @@ export const LOGIN_INFO = {
       blackFont: false,
       name: 'email',
     },
-    // {
-    //   id: 1,
-    //   text: '카카오톡 로그인',
-    //   bg: '#fee500',
-    //   blackFont: true,
-    // },
     {
       id: 1,
       text: '구글 로그인',
-      // bg: '#1876f1',
       bg: 'rebeccapurple',
       blackFont: false,
       name: 'google',

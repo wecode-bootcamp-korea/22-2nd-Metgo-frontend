@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { IoIosArrowDown } from 'react-icons/io';
 
 // COMPONENTS
@@ -10,12 +11,15 @@ import { LOGIN_INFO, SIGNUP_INFO } from './NavData';
 
 // STYLES
 import * as S from './NavEle';
-import { useHistory, useLocation } from 'react-router-dom';
 
 function Nav() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserMyOpen, setIsUserMyOpen] = useState(false);
   const [form, setForm] = useState('');
+  const [master, setMaster] = useState('');
+  const [name, setName] = useState('');
+  const { pathname } = useLocation();
+  const checkPath = pathname.includes('gosumain');
   const [isLoggedIn, setIsLoggedIn] = useState(
     // false
     !!localStorage.getItem('access_token')
@@ -42,10 +46,18 @@ function Nav() {
   };
 
   const modalClose = () => {
-    setIsModalOpen(false);
+    return setIsModalOpen(false);
   };
+
   const userMyOpen = () => {
     setIsUserMyOpen(!isUserMyOpen);
+  };
+
+  const checkRadioValue = data => {
+    setMaster(data);
+  };
+  const checkName = data => {
+    setName(data);
   };
 
   return (
@@ -53,7 +65,9 @@ function Nav() {
       <S.Navbar>
         <S.NavLeft>
           <S.LogoBox>
-            <S.LogoImg src="/images/metgo.png" art="logo" />
+            <S.HomeLink to="/">
+              <S.LogoImg src="/images/metgo.png" art="logo" />
+            </S.HomeLink>
           </S.LogoBox>
           <S.MenuBox>
             <S.MenuList>견적보기</S.MenuList>
@@ -68,7 +82,9 @@ function Nav() {
                 <S.UserImg src="/images/user_img1.jpg" alt="userImg" />
               </S.UserImgBox>
               <S.User onClick={userMyOpen}>
-                <S.UserName>성정준 고객님</S.UserName>
+                <S.UserName>
+                  {checkPath ? '남주원 고수님' : '성정준 고객님'}
+                </S.UserName>
                 <IoIosArrowDown className="userIcons" />
               </S.User>
             </>
@@ -83,11 +99,13 @@ function Nav() {
             </>
           )}
         </S.UserBox>
-        {isUserMyOpen && <UserMy />}
+        {isUserMyOpen && master !== 'masters' && <UserMy />}
       </S.Navbar>
 
       {isModalOpen && (
         <Modal
+          checkName={checkName}
+          checkRadioValue={checkRadioValue}
           form={form}
           modalClose={modalClose}
           setIsLoggedIn={setIsLoggedIn}

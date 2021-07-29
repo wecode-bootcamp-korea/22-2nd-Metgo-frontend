@@ -16,7 +16,13 @@ import { BASE_URL } from '../../../config';
 
 const { Kakao } = window;
 
-function Admin({ form, modalClose, setIsLoggedIn }) {
+function Admin({
+  form,
+  modalClose,
+  setIsLoggedIn,
+  checkRadioValue,
+  checkName,
+}) {
   const history = useHistory();
   const [radio, setRadio] = useState('');
   const [inputValues, setInputValues] = useState({
@@ -64,6 +70,10 @@ function Admin({ form, modalClose, setIsLoggedIn }) {
       alert('작성하신 내용을 확인해주세요');
     }
   };
+  const goToMasterPage = () => {
+    console.log(`:"hihih`, 'hihih');
+    radio === 'masters' && history.push('/gosumain');
+  };
 
   const fetchLogin = () => {
     {
@@ -79,10 +89,11 @@ function Admin({ form, modalClose, setIsLoggedIn }) {
           .then(res => {
             localStorage.setItem('access_token', res.access_token);
             setIsLoggedIn(true);
+            checkRadioValue(radio);
             modalClose();
-            history.push('/');
             alert('로그인에 성공했습니다');
           })
+          .then(() => goToMasterPage())
           .catch(err => console.log(`arr`, err));
     }
   };
@@ -100,9 +111,9 @@ function Admin({ form, modalClose, setIsLoggedIn }) {
         })
           .then(res => res.json())
           .then(res => {
-            console.log(`res`, res);
             modalClose();
             history.push('/');
+            checkName(inputValues.name);
             alert('회원가입에 성공하였습니다 로그인을 해주세요');
           })
           .catch(err => console.log(`err`, err));
@@ -125,9 +136,12 @@ function Admin({ form, modalClose, setIsLoggedIn }) {
                   if (res.message === 'SUCCESS') {
                     localStorage.setItem('access_token', res.access_token);
                     modalClose();
+                    goToMasterPage();
                     alert('로그인되었습니다');
                     setRadio('');
                     setIsLoggedIn(true);
+                    checkName(res.name);
+                    checkRadioValue(radio);
                   }
                 });
             },
@@ -138,7 +152,7 @@ function Admin({ form, modalClose, setIsLoggedIn }) {
         : alert('고객 고수 버튼중 하나를 선택해주새요');
     }
   };
-  console.log(`radio`, radio);
+
   return (
     <S.FormBox paddingBig={form.paddingBig} onSubmit={handleSubmit}>
       <S.Logo>

@@ -1,19 +1,73 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BASE_URL } from '../../config';
 
-function RequestListBar() {
+const MESSAGE = {
+  ACCEPTED: 'Transaction Accepted',
+  DENIED: 'Transaction Denied',
+};
+
+const REQUEST_ACCEPT = 1;
+const REQUEST_REJECT = 0;
+
+function RequestListBar({ quotationUsers, setQuotationUsers }) {
+  const updateQuotation = (quotation_id, is_completed) => {
+    fetch(`${BASE_URL}/quotations`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: localStorage.getItem('access_token'),
+      },
+      body: JSON.stringify({ quotation_id, is_completed }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        switch (res.message) {
+          case MESSAGE.ACCEPTED:
+            alert('요청이 수락하였습니다.');
+            break;
+          case MESSAGE.DENIED:
+            alert('요청을 거절하였습니다.');
+            break;
+
+          default:
+            alert('서버로부터 예외가 발생하였습니다');
+            break;
+        }
+
+        setQuotationUsers(prev =>
+          prev.filter(quotation => quotation.quotation_id !== quotation_id)
+        );
+      });
+  };
+
+  const acceptRequest = quotation_id => {
+    updateQuotation(quotation_id, REQUEST_ACCEPT);
+  };
+
+  const rejectRequest = quotation_id => {
+    updateQuotation(quotation_id, REQUEST_REJECT);
+  };
+
   return (
     <RequestWrapper>
       <RequestBox>
         <GosuTitle>받은 요청 리스트</GosuTitle>
         <ul>
-          <RequestCard>
-            <span>euiyeonlee</span>
-            <BtnBox>
-              <SuggestBtn>수락</SuggestBtn>
-              <SuggestBtn>거절</SuggestBtn>
-            </BtnBox>
-          </RequestCard>
+          {quotationUsers.map(({ quotation_id, user_id, user_name }) => {
+            return (
+              <RequestCard>
+                <span>{user_name}</span>
+                <BtnBox>
+                  <SuggestBtn onClick={() => acceptRequest(quotation_id)}>
+                    수락
+                  </SuggestBtn>
+                  <SuggestBtn onClick={() => rejectRequest(quotation_id)}>
+                    거절
+                  </SuggestBtn>
+                </BtnBox>
+              </RequestCard>
+            );
+          })}
         </ul>
       </RequestBox>
     </RequestWrapper>
@@ -72,3 +126,29 @@ const SuggestBtn = styled.button`
 `;
 
 export default RequestListBar;
+
+// const fetchFunction = () => {
+//   fetch(`apikey`, {
+//     headers: {
+//       Authorization: localStorage.getItem('access_token'),
+//     },
+//   })
+//   .then(res => res.json())
+//   .then(res => user_id  어쩌구저쩌구)
+// };
+
+// setInterval(() => {
+//   fetchFunction();
+// }, 5000);
+
+// const patchFunction = () => {
+//   fetch('apikey', {
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: localStorage.getItem('access_token'),
+//     },
+//     body: {
+//       user_id: user_id,
+//     },
+//   });
+// };

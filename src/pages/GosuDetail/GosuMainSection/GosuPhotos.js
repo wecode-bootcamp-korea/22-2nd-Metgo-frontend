@@ -77,6 +77,11 @@ const ViewAllBtn = styled.button`
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+
+  &:hover {
+    background-color: rebeccapurple;
+    color: white;
+  }
 `;
 
 export default GosuPhotos;

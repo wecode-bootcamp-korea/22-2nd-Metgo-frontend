@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import GosuMainSection from './GosuMainSection/GosuMainSection';
@@ -6,44 +7,49 @@ import GosuAsideBar from './GosuAsideBar/GosuAsideBar';
 import { BASE_URL } from '../../config';
 
 function GosuDetail() {
-  const [gosuDetails, setGosuDetails] = useState([]);
+  const [gosuDetails, setGosuDetails] = useState({});
   const [gosuTotalReview, setGosuTotalReview] = useState([]);
+  const { pathname } = useLocation();
+  const params = useParams();
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/gosuDetail.json')
-      // fetch(`${BASE_URL}/masters/profile/1`)
+    const { id } = params;
+
+    fetch(`${BASE_URL}/masters/${id}`)
       .then(res => res.json())
-      .then(data => setGosuDetails(data[0]));
-    // .then(data => setGosuDetails(data.data[0]));
+      .then(({ data }) => setGosuDetails(data[0]));
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:3000/data/userReviewData.json')
-      // fetch(`${BASE_URL}/reviews/${id}`)
+    const { id } = params;
+
+    fetch(`${BASE_URL}/reviews/${id}`)
       .then(res => res.json())
       .then(data => setGosuTotalReview(data.results));
   }, []);
 
   const quotationForm = () => {
-    fetch('http://15.165.15.135:8000/applications', {
+    const { id: master_id } = params;
+
+    fetch(`${BASE_URL}/quotations`, {
       method: 'POST',
-      body: JSON.stringify({
-        user_id: 15,
-        master_id: 307,
-      }),
+      headers: {
+        Authorization: localStorage.getItem('access_token'),
+      },
+      body: JSON.stringify({ master_id }),
     })
       .then(res => res.json())
       .then(res => {
-        if (res.success) {
+        console.log(`res`, res);
+        if (res.message === 'Success') {
           alert('견적을 요청하였습니다!');
-          console.log('견적요청 성공');
         }
       });
   };
-
+  console.log(`gosuDetails`, gosuDetails);
   return (
     <GosuDetailContainer>
-      {gosuDetails.length !== 0 && (
+      {Object.keys(gosuDetails).length && (
         <>
           <GosuMainSection
             gosuDetails={gosuDetails}

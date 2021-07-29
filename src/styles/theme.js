@@ -9,6 +9,17 @@ const theme = {
       flex-direction: ${direction};
     `;
   },
+  color: (color = null, weight = null) => {
+    return css`
+      color: #323232;
+
+      &:hover {
+        color: ${color};
+        font-weight: ${weight};
+      }
+    `;
+  },
+
   background: '#FFFEFC',
   white: '#FFFFFF',
   vermilion: '#ff7425',

@@ -16,6 +16,7 @@ function Routes() {
         <Route exact path="/survey" component={Survey} />
         <Route exact path="/survey/:id" component={Survey} />
         <Route exact path="/findgosu" component={FindGosu} />
+        <Route exact path="/findgosu/:id" component={FindGosu} />
         <Route exact path="/gosudetail/:id" component={GosuDetail} />
         <Route exact path="/gosumain" component={GosuMain} />
       </Switch>
