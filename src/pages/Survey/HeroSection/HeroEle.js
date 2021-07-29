@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 export const HeroSection = styled.div`
-  background-image: url('https://dmmj3ljielax6.cloudfront.net/upload/service/075c038f-1021-4184-b9aa-1e3a6fc145fc.jpg');
+  background-image: url(${({ mainImg }) => mainImg});
+  background-repeat: no-repeat;
+  background-position: center center;
 `;
 
 export const HeroTextBox = styled.div`
   width: 970px;
+  height: 450px;
   margin: 0 auto;
   padding: 7rem 0;
 `;
@@ -46,8 +49,19 @@ export const Total = styled.div`
   padding-right: 1rem;
   color: #fff;
   border-right: 1px solid #fff;
+  text-align: center;
 
   &:last-child {
     border: none;
+  }
+
+  h5 {
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  p {
+    color: #fff;
   }
 `;

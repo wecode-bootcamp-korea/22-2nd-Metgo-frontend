@@ -8,10 +8,12 @@ function Radio({ radioValue, question, getRadioValue }) {
       <S.RadioWrap>
         {question.answer.map((data, i) => {
           return (
-            <S.RadioList key={i}>
+            <S.RadioList
+              key={i}
+              onClick={() => getRadioValue([data, question.name])}
+            >
               <S.InputWrap>
                 <S.Input
-                  className="answer"
                   type="radio"
                   name={question.id}
                   id={data}

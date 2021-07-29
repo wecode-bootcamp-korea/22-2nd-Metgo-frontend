@@ -9,6 +9,7 @@ export const Btns = styled.button`
   width: 70%;
   height: 50px;
   margin: 5px 0;
+  background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ blackFont }) => (blackFont ? '#000' : '#fff')};
   border: none;
   border-radius: 5px;

@@ -13,7 +13,9 @@ function UserFormRadio({ form, setRadioValue }) {
           value="users"
           onClick={setRadioValue}
         />
-        <label htmlFor="users">{form.radioBtn[0].text}</label>
+        <label htmlFor="users" onClick={setRadioValue}>
+          {form.radioBtn[0].text}
+        </label>
       </RadioBtn>
       <RadioBtn>
         <input
@@ -22,7 +24,9 @@ function UserFormRadio({ form, setRadioValue }) {
           value="masters"
           onClick={setRadioValue}
         />
-        <label htmlFor="gosu">{form.radioBtn[1].text}</label>
+        <label htmlFor="gosu" onClick={setRadioValue}>
+          {form.radioBtn[1].text}
+        </label>
       </RadioBtn>
     </RadioWrap>
   );

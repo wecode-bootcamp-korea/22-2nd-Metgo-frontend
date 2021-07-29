@@ -24,7 +24,7 @@ const CategoryWrap = styled.div`
   padding: 10px;
   list-style: none;
   margin-top: 100px;
-  z-index: 9999;
+  z-index: 1;
 `;
 
 const CategoryBox = styled.li`

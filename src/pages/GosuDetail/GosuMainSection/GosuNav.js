@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 function GosuNav({ reviewNum }) {
-  const navList = ['고수 정보', '사진/동영상', `리뷰 ${reviewNum}`];
+  const navList = ['고수 정보', '사진/동영상', `리뷰 ${reviewNum}`, '질문답변'];
 
   return (
     <GosuStickyNav>
@@ -25,7 +25,7 @@ const GosuStickyNav = styled.ul`
 `;
 
 const NavTitle = styled.li`
-  padding: 10px 0 15px 0;
+  padding: 10px 0 20px 0;
   color: #737373;
   font-size: 16px;
 
@@ -34,9 +34,11 @@ const NavTitle = styled.li`
   }
 
   &:hover {
-    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+    border-bottom: 4px solid black;
     color: black;
     font-weight: bold;
+    cursor: pointer;
   }
 `;
 

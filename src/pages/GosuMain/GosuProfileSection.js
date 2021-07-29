@@ -22,6 +22,7 @@ function GosuProfileSection({ gosuProfileValue, totalReview }) {
     description,
     uploaded_image,
   } = gosuProfileValue;
+  console.log(`object`, uploaded_image);
 
   return (
     <GosuProfileWrapper>
@@ -94,7 +95,7 @@ function GosuProfileSection({ gosuProfileValue, totalReview }) {
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>사업자등록증 등록</h2>
-          {business === true ? (
+          {business ? (
             <IoCheckmarkCircle color="green" size="25" />
           ) : (
             <IoCheckmarkCircleOutline color="grey" size="25" />
@@ -104,7 +105,7 @@ function GosuProfileSection({ gosuProfileValue, totalReview }) {
       <GosuTitleNameBox>
         <TitleNameBar>
           <h2>자격증 등록</h2>
-          {certification === true ? (
+          {certification ? (
             <IoCheckmarkCircle color="green" size="25" />
           ) : (
             <IoCheckmarkCircleOutline color="grey" size="25" />
@@ -287,6 +288,7 @@ const EditValueBtn = styled.button`
 `;
 
 const TitleValue = styled.span`
+  line-height: 1.7;
   color: #737373;
 `;
 

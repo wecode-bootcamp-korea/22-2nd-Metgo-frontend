@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 //STYLES
 import styled from 'styled-components';
 
+import { BASE_URL } from '../../../config';
+
 function UserMy() {
   const [isToggleHeight, setIsToggleHeight] = useState(false);
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [matchedLists, setMatchedLists] = useState([]);
 
   const veiwGosuList = () => {
     setIsToggleHeight(prev => !prev);
   };
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/applications/services/2/masters`, {
+      headers: {
+        Authorization: localStorage.getItem('access_token'),
+      },
+    })
+      .then(res => res.json())
+      .then(res => {
+        setMatchedLists(res.results);
+      });
+  }, []);
 
   return (
     <Container>
@@ -26,12 +40,11 @@ function UserMy() {
           )}
         </GosuListBox>
         <ListWrap className={isToggleHeight ? 'active' : null}>
-          {/* test map */}
-          {arr.map((el, i) => {
+          {matchedLists.map((matchedList, i) => {
             return (
               <List key={i}>
-                <ListImg src="/images/user_img1.jpg" alt="" />
-                <ListName>성정준</ListName>
+                <ListImg src={matchedList.image} alt="gosu_image" />
+                <ListName>{matchedList.master_name}</ListName>
               </List>
             );
           })}
@@ -112,5 +125,4 @@ const ListImg = styled.img`
 const ListName = styled.p`
   ${({ theme }) => theme.flex('flex-start', 'center', null)};
   margin: 2px 0 0 10px;
-  color: blue;
 `;

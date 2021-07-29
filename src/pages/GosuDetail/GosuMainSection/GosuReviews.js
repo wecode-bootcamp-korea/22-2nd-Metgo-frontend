@@ -5,6 +5,9 @@ import { RatingStars } from '../../../RatingStars';
 function GosuReviews({ gosuDetails, gosuTotalReview, handleMoreBtn, closed }) {
   const { average_rating, review_counts } = gosuDetails;
 
+  console.log(`object`, gosuTotalReview);
+  console.log(`gosuDetails`, review_counts);
+
   return (
     <ReviewWrapper>
       <GosuReviewWrapper>
@@ -18,25 +21,22 @@ function GosuReviews({ gosuDetails, gosuTotalReview, handleMoreBtn, closed }) {
         </ReviewSummary>
         <ReviewShowBox>
           <ReviewList isClosed={closed.review}>
-            {gosuTotalReview.length !== 0 &&
-              gosuTotalReview.map((review, i) => {
-                return (
-                  <ReviewCard key={i}>
-                    <UserReviewInfo>
-                      <UserName>{review.name}</UserName>
-                      <UserStarGrade>
-                        {RatingStars(review.rating)}
-                      </UserStarGrade>
-                      <UserPostDate>
-                        {review.created_at.split('T')[0]}
-                      </UserPostDate>
-                    </UserReviewInfo>
-                    <UserReviewTextBox>
-                      <p>{review.content}</p>
-                    </UserReviewTextBox>
-                  </ReviewCard>
-                );
-              })}
+            {gosuTotalReview.map((review, i) => {
+              return (
+                <ReviewCard key={i}>
+                  <UserReviewInfo>
+                    <UserName>{review.name}</UserName>
+                    <UserStarGrade>{RatingStars(review.rating)}</UserStarGrade>
+                    <UserPostDate>
+                      {review.created_at.split('T')[0]}
+                    </UserPostDate>
+                  </UserReviewInfo>
+                  <UserReviewTextBox>
+                    <p>{review.content}</p>
+                  </UserReviewTextBox>
+                </ReviewCard>
+              );
+            })}
           </ReviewList>
           <ReviewMoreBox>
             <ReviewMoreBtn
@@ -156,6 +156,11 @@ const ReviewMoreBtn = styled.button`
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+
+  &:hover {
+    background-color: rebeccapurple;
+    color: white;
+  }
 `;
 
 export default GosuReviews;

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 export const NavContainer = styled.nav`
   ${({ theme }) => theme.flex('center', 'center', null)};
   border-bottom: 1px solid #ccc;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 export const Navbar = styled.div`
@@ -20,9 +21,13 @@ export const NavLeft = styled.div`
 
 export const LogoBox = styled.div`
   ${({ theme }) => theme.flex('center', 'center', null)};
-  width: 120px;
+  width: 140px;
   height: 100%;
   margin: 0 30px;
+`;
+
+export const HomeLink = styled(Link)`
+  /*  */
 `;
 
 export const LogoImg = styled.img`
@@ -32,14 +37,19 @@ export const LogoImg = styled.img`
 
 export const MenuBox = styled.ul`
   ${({ theme }) => theme.flex('center', 'center', null)};
-  margin-top: 5px;
 `;
 
 export const MenuList = styled(Link)`
   margin: 0 10px;
   color: #323232;
+  font-size: 15px;
   text-decoration: none;
   cursor: pointer;
+
+  &:hover {
+    color: rebeccapurple;
+    font-weight: bold;
+  }
 `;
 
 export const UserBox = styled.div`
@@ -48,11 +58,11 @@ export const UserBox = styled.div`
 
 export const Button = styled.button`
   background-color: transparent;
-  font-size: 15px;
   color: #323232;
   border: none;
   outline: none;
   border-radius: 5px;
+  font-size: 15px;
   cursor: pointer;
 `;
 
@@ -83,7 +93,7 @@ export const User = styled.div`
   }
 `;
 export const UserName = styled.p`
-  color: gery;
-  font-size: 15px;
+  color: #323232;
+  font-size: 17px;
   cursor: pointer;
 `;
