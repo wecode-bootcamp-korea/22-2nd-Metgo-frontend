@@ -70,8 +70,8 @@ function Admin({
       alert('작성하신 내용을 확인해주세요');
     }
   };
+
   const goToMasterPage = () => {
-    console.log(`:"hihih`, 'hihih');
     radio === 'masters' && history.push('/gosumain');
   };
 
@@ -91,9 +91,9 @@ function Admin({
             setIsLoggedIn(true);
             checkRadioValue(radio);
             modalClose();
+            goToMasterPage();
             alert('로그인에 성공했습니다');
           })
-          .then(() => goToMasterPage())
           .catch(err => console.log(`arr`, err));
     }
   };

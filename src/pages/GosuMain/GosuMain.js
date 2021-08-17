@@ -58,7 +58,7 @@ function GosuMain() {
   useEffect(() => {
     // console.log(quotationUsers);
   }, [quotationUsers]);
-  console.log(`gosuProfileValue`, gosuProfileValue);
+
   return (
     <GosuMainContainer>
       {gosuProfileValue.length && totalReview.length && (
